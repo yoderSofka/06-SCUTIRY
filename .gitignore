@@ -1,9 +1,9 @@
 HELP.md
 .gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-/build/
-!/app_service-0.0.1-SNAPSHOT.jar
 
 ### STS ###
 .apt_generated
@@ -16,8 +16,7 @@ HELP.md
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
-# Excepción para incluir el JAR en la raíz
-!/app_service-0.0.1-SNAPSHOT.jar
+
 ### IntelliJ IDEA ###
 .idea
 *.iws

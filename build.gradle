@@ -31,9 +31,12 @@ allprojects {
         mavenCentral()
     }
 }
-
 subprojects {
     apply plugin: 'java'
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
+
+    tasks.withType(org.springframework.boot.gradle.tasks.bundling.BootJar) {
+        mainClass.set('com.example.banco_hex_yoder.MainApplication')
+    }
 }
