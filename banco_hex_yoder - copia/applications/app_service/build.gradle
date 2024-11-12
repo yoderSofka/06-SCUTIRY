@@ -34,6 +34,3 @@ tasks.named('bootJar') {
     mainClass.set('com.example.banco_hex_yoder.MainApplication')
 }
 
-springBoot {
-    mainClass = 'com.example.banco_hex_yoder.MainApplication'
-}
