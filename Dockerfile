@@ -1,20 +1,17 @@
-# Imagen oficial de OpenJDK (Java 21)
+# Usa la imagen de OpenJDK 21
 FROM openjdk:21-jdk-slim
 
-# Directorio de trabajo dentro del contenedor
+# Define el directorio de trabajo
 WORKDIR /app
 
-# Copia todos los archivos al contenedor
+# Copia todo el proyecto
 COPY . .
 
-# Otorga permisos de ejecución a gradlew
-RUN chmod +x ./gradlew
+# Construye la aplicación desde el módulo app_service y crea el JAR
+RUN ./gradlew :applications:app_service:bootJar
 
-# Instala y construye la aplicación sin ejecutar pruebas
-RUN ./gradlew clean build -x test --no-daemon
-
-# Expone el puerto que usa Spring Boot (8080 por defecto)
+# Expone el puerto 8080 para la aplicación
 EXPOSE 8080
 
-# Ejecuta la aplicación
-CMD ["java", "-jar", "build/libs/app_service-0.0.1-SNAPSHOT.jar"]
+# Ejecuta el archivo JAR generado
+CMD ["java", "-jar", "applications/app_service/build/libs/app_service-0.0.1-SNAPSHOT.jar"]
