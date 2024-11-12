@@ -30,21 +30,9 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 
 }
-
-
 tasks.named('bootJar') {
-    archiveBaseName.set('app-service')
+    mainClass.set('com.example.banco_hex_yoder.MainApplication')
 }
-
-
-
-
-
-
-
-
-
-
 
 springBoot {
     mainClass = 'com.example.banco_hex_yoder.MainApplication'
