@@ -1,16 +1,14 @@
-
+# Usa una imagen oficial de OpenJDK como base
 FROM openjdk:21-jdk-slim
 
+# Establece el directorio de trabajo en /app
 WORKDIR /app
 
+# Copia el JAR generado en el contenedor
+COPY applications/app_service/build/libs/app_service-0.0.1-SNAPSHOT.jar app.jar
 
-COPY . .
-
-# Instala Gradle Wrapper y construye la aplicación sin pruebas
-RUN ./gradlew clean build -x test --no-daemon
-
-# Expone el puerto que usa Spring Boot (8080 por defecto)
+# Expone el puerto en el que la aplicación escucha
 EXPOSE 8080
 
-# Ejecuta la aplicación con `bootRun`
-CMD ["./gradlew", "bootRun", "--no-daemon"]
+# Define el comando de inicio
+CMD ["java", "-jar", "app.jar"]
