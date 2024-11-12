@@ -1,17 +1,14 @@
-
+# Usa una imagen ligera de OpenJDK
 FROM openjdk:21-jdk-slim
 
-
+# Crea un directorio de trabajo
 WORKDIR /app
 
+# Copia el JAR en la imagen de Docker
+COPY app_service-0.0.1-SNAPSHOT.jar /app/app.jar
 
-COPY . .
-
-# Instala Gradle Wrapper y construye la aplicación sin pruebas
-RUN ./gradlew clean build -x test --no-daemon
-
-# Expone el puerto que usa Spring Boot (8080 por defecto)
+# Expone el puerto que tu aplicación utiliza
 EXPOSE 8080
 
-# Ejecuta la aplicación con `bootRun`
-CMD ["./gradlew", "bootRun", "--no-daemon"]
+# Ejecuta la aplicación
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
