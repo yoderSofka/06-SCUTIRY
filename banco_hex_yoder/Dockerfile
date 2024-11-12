@@ -1,7 +1,6 @@
 FROM openjdk:21-jdk-slim
 WORKDIR /app
 
-
 COPY . .
 
 # Instala Gradle Wrapper y construye la aplicación sin pruebas
