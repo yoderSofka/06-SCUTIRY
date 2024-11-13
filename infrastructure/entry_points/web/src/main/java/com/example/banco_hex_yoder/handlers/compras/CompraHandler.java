@@ -62,7 +62,7 @@ public class CompraHandler {
             BigDecimal monto = request.getDinBody().getMonto();
             Account cuentaActualizada = compraFisico.realizarCompra(cuentaOrigenNumber, monto);
 
-            CompraResponseDTO.Detalle detalle = createDetalle(monto, new BigDecimal("2.0"), "CompraFisico", request.getDinBody().getCuentaOrigen());
+            CompraResponseDTO.Detalle detalle = createDetalle(monto, new BigDecimal("0.0"), "cCompraEstablecimientoFisico", request.getDinBody().getCuentaOrigen());
             CompraResponseDTO responseBody = new CompraResponseDTO(
                     encripcionService.encriptar(String.valueOf(cuentaActualizada.getNumber()), symmetricKey, initializationVector),
                     cuentaActualizada.getAmount(),
@@ -111,7 +111,7 @@ public class CompraHandler {
             BigDecimal monto = request.getDinBody().getMonto();
             Account cuentaActualizada = compraWeb.realizarCompra(cuentaOrigenNumber, monto);
 
-            CompraResponseDTO.Detalle detalle = createDetalle(monto, new BigDecimal("3.0"), "CompraWeb", request.getDinBody().getCuentaOrigen());
+            CompraResponseDTO.Detalle detalle = createDetalle(monto, new BigDecimal("5.0"), "CompraWeb", request.getDinBody().getCuentaOrigen());
             CompraResponseDTO responseBody = new CompraResponseDTO(
                     encripcionService.encriptar(String.valueOf(cuentaActualizada.getNumber()), symmetricKey, initializationVector),
                     cuentaActualizada.getAmount(),

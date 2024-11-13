@@ -1,8 +1,9 @@
 package com.example.banco_hex_yoder.mongo_repository.data.entidades;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.LocalDateTime;
 
 @Document(collection = "customer")
 public class ClienteDocument {
@@ -11,20 +12,16 @@ public class ClienteDocument {
     private Integer id;
     private String username;
     private boolean isDeleted;
+    private LocalDateTime createdAt;
 
-    // Getters y Setters
 
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
-        this.id = id.getTimestamp();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -41,5 +38,13 @@ public class ClienteDocument {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

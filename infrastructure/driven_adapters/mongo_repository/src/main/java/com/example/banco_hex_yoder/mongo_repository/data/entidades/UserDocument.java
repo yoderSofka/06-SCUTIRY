@@ -10,7 +10,7 @@ import java.util.List;
 public class UserDocument {
 
     @Id
-    private String id;
+    private Integer id;
     private String username;
     private String password;
     private List<String> roles;
@@ -19,11 +19,11 @@ public class UserDocument {
     private boolean isDeleted;
 
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

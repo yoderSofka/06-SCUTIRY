@@ -68,7 +68,7 @@ public class DepositoHandler {
             BigDecimal monto = request.getDinBody().getMonto();
             Account cuentaDestinoActualizada = depositoDesdeSucursal.realizarDeposito(cuentaOrigenNumber, cuentaDestinoNumber, monto);
 
-            DepositoResponseDTO.Detalle detalle = createDetalle(monto, new BigDecimal("1.0"), "DepositoSucursal", request.getDinBody().getCuentaOrigen(), request.getDinBody().getCuentaDestino());
+            DepositoResponseDTO.Detalle detalle = createDetalle(monto, new BigDecimal("0.0"), "DepositoSucursal", request.getDinBody().getCuentaOrigen(), request.getDinBody().getCuentaDestino());
             DepositoResponseDTO responseBody = new DepositoResponseDTO(
                     encripcionService.encriptar(String.valueOf(cuentaDestinoActualizada.getNumber()), symmetricKey, initializationVector),
                     cuentaDestinoActualizada.getAmount(),
@@ -120,7 +120,7 @@ public class DepositoHandler {
             BigDecimal monto = request.getDinBody().getMonto();
             Account cuentaDestinoActualizada = depositoDesdeCajero.realizarDeposito(cuentaOrigenNumber, cuentaDestinoNumber, monto);
 
-            DepositoResponseDTO.Detalle detalle = createDetalle(monto, new BigDecimal("1.0"), "DepositoCajero", request.getDinBody().getCuentaOrigen(), request.getDinBody().getCuentaDestino());
+            DepositoResponseDTO.Detalle detalle = createDetalle(monto, new BigDecimal("2.0"), "DepositoCajero", request.getDinBody().getCuentaOrigen(), request.getDinBody().getCuentaDestino());
             DepositoResponseDTO responseBody = new DepositoResponseDTO(
                     encripcionService.encriptar(String.valueOf(cuentaDestinoActualizada.getNumber()), symmetricKey, initializationVector),
                     cuentaDestinoActualizada.getAmount(),
@@ -171,7 +171,7 @@ public class DepositoHandler {
             BigDecimal monto = request.getDinBody().getMonto();
             Account cuentaDestinoActualizada = depositoDesdeOtraCuenta.realizarDeposito(cuentaOrigenNumber, cuentaDestinoNumber, monto);
 
-            DepositoResponseDTO.Detalle detalle = createDetalle(monto, new BigDecimal("1.0"), "DepositoOtraCuenta", request.getDinBody().getCuentaOrigen(), request.getDinBody().getCuentaDestino());
+            DepositoResponseDTO.Detalle detalle = createDetalle(monto, new BigDecimal("1.5"), "DepositoOtraCuenta", request.getDinBody().getCuentaOrigen(), request.getDinBody().getCuentaDestino());
             DepositoResponseDTO responseBody = new DepositoResponseDTO(
                     encripcionService.encriptar(String.valueOf(cuentaDestinoActualizada.getNumber()), symmetricKey, initializationVector),
                     cuentaDestinoActualizada.getAmount(),

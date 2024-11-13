@@ -25,11 +25,12 @@ public class DepositoDesdeSucursal {
             throw new IllegalArgumentException("Saldo insuficiente para realizar el depósito");
         }
 
-        BigDecimal montoFinal = monto.subtract(costoDepositoSucursal);
-        cuentaOrigen.setAmount(cuentaOrigen.getAmount().subtract(monto));
+
+        BigDecimal montoFinal = monto.add(costoDepositoSucursal);
+        cuentaOrigen.setAmount(cuentaOrigen.getAmount().subtract(montoFinal));
         cuentaDestino.setCreatedAt(cuentaDestino.getCreatedAt());
 
-        cuentaDestino.setAmount(cuentaDestino.getAmount().add(montoFinal));
+        cuentaDestino.setAmount(cuentaDestino.getAmount().add(monto));
 
         accountGateway.save(cuentaOrigen);
         accountGateway.save(cuentaDestino);
@@ -37,6 +38,6 @@ public class DepositoDesdeSucursal {
 
         accountGateway.registrarTransaccion(monto, costoDepositoSucursal, "DepositoSucursal", cuentaOrigenNumber, cuentaDestinoNumber);
 
-        return cuentaDestino;
+        return cuentaOrigen;
     }
 }

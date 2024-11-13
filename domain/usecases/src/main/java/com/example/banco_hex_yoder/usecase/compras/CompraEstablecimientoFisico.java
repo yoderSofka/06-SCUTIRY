@@ -27,7 +27,7 @@
             cuentaOrigen.setAmount(cuentaOrigen.getAmount().subtract(montoTotal));
             accountGateway.save(cuentaOrigen);
 
-            accountGateway.registrarTransaccion(monto, costoCompraEstablecimiento, "costoCompraEstablecimientoFisico", cuentaOrigenNumber, cuentaOrigenNumber);
+            accountGateway.registrarTransaccion(monto, costoCompraEstablecimiento, "cCompraEstablecimientoFisico", cuentaOrigenNumber, Integer.valueOf("000000000"));
 
             return cuentaOrigen;
         }

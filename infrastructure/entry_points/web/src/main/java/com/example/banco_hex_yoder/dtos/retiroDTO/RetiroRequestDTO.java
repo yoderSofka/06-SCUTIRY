@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class RetiroRequestDTO {
     private String cuentaOrigen;
-    private String cuentaDestino;
+
     private BigDecimal monto;
     private String customer;
 
@@ -16,13 +16,9 @@ public class RetiroRequestDTO {
         this.cuentaOrigen = cuentaOrigen;
     }
 
-    public String getCuentaDestino() {
-        return cuentaDestino;
-    }
 
-    public void setCuentaDestino(String cuentaDestino) {
-        this.cuentaDestino = cuentaDestino;
-    }
+
+
 
     public BigDecimal getMonto() {
         return monto;

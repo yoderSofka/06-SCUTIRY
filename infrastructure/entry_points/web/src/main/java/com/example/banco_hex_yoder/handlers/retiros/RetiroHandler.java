@@ -30,8 +30,8 @@ public class RetiroHandler {
         this.encripcionService = encripcionService;
     }
 
-    private RetiroResponseDTO.Detalle createDetalle(BigDecimal monto, BigDecimal costo, String tipoRetiro, String cuentaOrigen, String cuentaDestino) {
-        return new RetiroResponseDTO.Detalle(monto, costo, tipoRetiro, cuentaOrigen, cuentaDestino, LocalDateTime.now());
+    private RetiroResponseDTO.Detalle createDetalle(BigDecimal monto, BigDecimal costo, String tipoRetiro, String cuentaOrigen) {
+        return new RetiroResponseDTO.Detalle(monto, costo, tipoRetiro, cuentaOrigen, LocalDateTime.now());
     }
 
     public DinResponse<RetiroResponseDTO> ejecutarRetiroCajero(DinRequest<RetiroRequestDTO> request) {
@@ -54,11 +54,11 @@ public class RetiroHandler {
                 return response;
             }
 
-            Integer cuentaDestinoNumber = Integer.parseInt(encripcionService.desencriptar(request.getDinBody().getCuentaDestino(), symmetricKey, initializationVector));
+            Integer cuentaDestinoNumber = 000000000;
             BigDecimal monto = request.getDinBody().getMonto();
             Account cuentaActualizada = retiroCajero.realizarRetiro(cuentaOrigenNumber, cuentaDestinoNumber, monto);
 
-            RetiroResponseDTO.Detalle detalle = createDetalle(monto, new BigDecimal("1.5"), "RetiroCajero", request.getDinBody().getCuentaOrigen(), request.getDinBody().getCuentaDestino());
+            RetiroResponseDTO.Detalle detalle = createDetalle(monto, new BigDecimal("1.0"), "RetiroCajero", request.getDinBody().getCuentaOrigen());
             RetiroResponseDTO responseBody = new RetiroResponseDTO(
                     encripcionService.encriptar(String.valueOf(cuentaActualizada.getNumber()), symmetricKey, initializationVector),
                     cuentaActualizada.getAmount(),

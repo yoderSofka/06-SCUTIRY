@@ -4,32 +4,32 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class CompraResponseDTO {
-    private String cuentaOrigenEncriptada;
-    private BigDecimal saldoActualizado;
+    private String cuentaOrigen;
+    private BigDecimal saldoActual;
     private Detalle detalle;
 
     public CompraResponseDTO() {}
 
-    public CompraResponseDTO(String cuentaOrigenEncriptada, BigDecimal saldoActualizado, Detalle detalle) {
-        this.cuentaOrigenEncriptada = cuentaOrigenEncriptada;
-        this.saldoActualizado = saldoActualizado;
+    public CompraResponseDTO(String cuentaOrigen, BigDecimal saldoActual, Detalle detalle) {
+        this.cuentaOrigen = cuentaOrigen;
+        this.saldoActual = saldoActual;
         this.detalle = detalle;
     }
 
-    public String getCuentaOrigenEncriptada() {
-        return cuentaOrigenEncriptada;
+    public String getCuentaOrigen() {
+        return cuentaOrigen;
     }
 
-    public void setCuentaOrigenEncriptada(String cuentaOrigenEncriptada) {
-        this.cuentaOrigenEncriptada = cuentaOrigenEncriptada;
+    public void setCuentaOrigen(String cuentaOrigenEncriptada) {
+        this.cuentaOrigen = cuentaOrigenEncriptada;
     }
 
-    public BigDecimal getSaldoActualizado() {
-        return saldoActualizado;
+    public BigDecimal getSaldoActual() {
+        return saldoActual;
     }
 
-    public void setSaldoActualizado(BigDecimal saldoActualizado) {
-        this.saldoActualizado = saldoActualizado;
+    public void setSaldoActual(BigDecimal saldoActualizado) {
+        this.saldoActual = saldoActualizado;
     }
 
     public Detalle getDetalle() {

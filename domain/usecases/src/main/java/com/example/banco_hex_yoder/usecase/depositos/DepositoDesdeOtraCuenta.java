@@ -25,9 +25,10 @@ public class DepositoDesdeOtraCuenta {
         }
 
 
-        BigDecimal montoFinal = monto.subtract(costoDepositoOtraCuenta);
-        cuentaOrigen.setAmount(cuentaOrigen.getAmount().subtract(monto));
-        cuentaDestino.setAmount(cuentaDestino.getAmount().add(montoFinal));
+        BigDecimal montoFinal = monto.add(costoDepositoOtraCuenta);
+
+        cuentaOrigen.setAmount(cuentaOrigen.getAmount().subtract(montoFinal));
+        cuentaDestino.setAmount(cuentaDestino.getAmount().add(monto));
 
 
         accountGateway.save(cuentaOrigen);
@@ -36,6 +37,6 @@ public class DepositoDesdeOtraCuenta {
 
         accountGateway.registrarTransaccion(monto, costoDepositoOtraCuenta, "DepositoOtraCuenta", cuentaOrigenNumber, cuentaDestinoNumber);
 
-        return cuentaDestino;
+        return cuentaOrigen;
     }
 }

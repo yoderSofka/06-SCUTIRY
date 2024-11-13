@@ -5,24 +5,24 @@ import java.time.LocalDateTime;
 
 public class DepositoResponseDTO {
 
-    private String cuentaDestino;
+    private String cuentaOrigen;
     private BigDecimal saldoActual;
     private Detalle detalle;
 
     public DepositoResponseDTO() {}
 
-    public DepositoResponseDTO(String cuentaDestino, BigDecimal saldoActual, Detalle detalle) {
-        this.cuentaDestino = cuentaDestino;
+    public DepositoResponseDTO(String cuentaOrigen, BigDecimal saldoActual, Detalle detalle) {
+        this.cuentaOrigen = cuentaOrigen;
         this.saldoActual = saldoActual;
         this.detalle = detalle;
     }
 
-    public String getCuentaDestino() {
-        return cuentaDestino;
+    public String getCuentaOrigen() {
+        return cuentaOrigen;
     }
 
-    public void setCuentaDestino(String cuentaDestino) {
-        this.cuentaDestino = cuentaDestino;
+    public void setCuentaOrigen(String cuentaDestino) {
+        this.cuentaOrigen = cuentaDestino;
     }
 
     public BigDecimal getSaldoActual() {

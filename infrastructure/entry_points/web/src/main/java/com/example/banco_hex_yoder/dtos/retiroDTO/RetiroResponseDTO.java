@@ -45,17 +45,16 @@ public class RetiroResponseDTO {
         private BigDecimal costoDeposito;
         private String tipoDeposito;
         private String cuentaOrigen;
-        private String cuentaDestino;
         private LocalDateTime fechaTransaccion;
 
         public Detalle() {}
 
-        public Detalle(BigDecimal montoDeposito, BigDecimal costoDeposito, String tipoDeposito, String cuentaOrigen, String cuentaDestino, LocalDateTime fechaTransaccion) {
+        public Detalle(BigDecimal montoDeposito, BigDecimal costoDeposito, String tipoDeposito, String cuentaOrigen, LocalDateTime fechaTransaccion) {
             this.montoDeposito = montoDeposito;
             this.costoDeposito = costoDeposito;
             this.tipoDeposito = tipoDeposito;
             this.cuentaOrigen = cuentaOrigen;
-            this.cuentaDestino = cuentaDestino;
+
             this.fechaTransaccion = fechaTransaccion;
         }
 
@@ -91,13 +90,8 @@ public class RetiroResponseDTO {
             this.cuentaOrigen = cuentaOrigen;
         }
 
-        public String getCuentaDestino() {
-            return cuentaDestino;
-        }
 
-        public void setCuentaDestino(String cuentaDestino) {
-            this.cuentaDestino = cuentaDestino;
-        }
+
 
         public LocalDateTime getFechaTransaccion() {
             return fechaTransaccion;

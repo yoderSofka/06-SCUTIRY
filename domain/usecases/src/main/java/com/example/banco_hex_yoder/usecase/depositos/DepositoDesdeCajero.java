@@ -24,9 +24,10 @@ public class DepositoDesdeCajero {
             throw new IllegalArgumentException("Saldo insuficiente para realizar el depósito");
         }
 
-        BigDecimal montoFinal = monto.subtract(costoDepositoCajero);
-        cuentaOrigen.setAmount(cuentaOrigen.getAmount().subtract(monto));
-        cuentaDestino.setAmount(cuentaDestino.getAmount().add(montoFinal));
+
+        BigDecimal montoFinal = monto.add(costoDepositoCajero);
+        cuentaOrigen.setAmount(cuentaOrigen.getAmount().subtract(montoFinal));
+        cuentaDestino.setAmount(cuentaDestino.getAmount().add(monto));
 
         accountGateway.save(cuentaOrigen);
         accountGateway.save(cuentaDestino);
@@ -34,6 +35,6 @@ public class DepositoDesdeCajero {
 
         accountGateway.registrarTransaccion(monto, costoDepositoCajero, "DepositoCajero", cuentaOrigenNumber, cuentaDestinoNumber);
 
-        return cuentaDestino;
+        return cuentaOrigen;
     }
 }

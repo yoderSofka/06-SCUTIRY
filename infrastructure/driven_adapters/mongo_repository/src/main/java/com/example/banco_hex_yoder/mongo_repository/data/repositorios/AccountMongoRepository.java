@@ -12,16 +12,26 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class AccountMongoRepository {
 
     private final MongoTemplate mongoTemplate;
 
+
+
     @Autowired
     public AccountMongoRepository(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
+    }
+
+    // Método para obtener todas las cuentas
+    public List<Account> findAll() {
+        List<Document> documents = mongoTemplate.findAll(Document.class, "account");
+        return documents.stream().map(this::toAccount).collect(Collectors.toList());
     }
 
     public Optional<Account> findById(Integer id) {
@@ -29,6 +39,8 @@ public class AccountMongoRepository {
         Document document = mongoTemplate.findOne(query, Document.class, "account");
         return Optional.ofNullable(toAccount(document));
     }
+
+
 
     public Optional<Account> findByNumber(Integer number) {
         Query query = new Query(Criteria.where("number").is(number));

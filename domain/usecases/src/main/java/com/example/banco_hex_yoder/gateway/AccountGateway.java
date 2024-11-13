@@ -11,5 +11,5 @@ public interface AccountGateway {
     Optional<Account> findByNumber(Integer number);
     void updateBalance(Integer accountId, BigDecimal newBalance);
     boolean esCuentaDeUsuario(Integer accountNumber, String username);
-    // No incluir directamente UserDocument o UserEntity aquí
+
 }
