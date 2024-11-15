@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/logs")
+@Tag(name = "logs", description = "Optiene los solo con rol: OSI")
 public class LogController {
 
     private final ObtenerLogsHandler obtenerLogsHandler;
