@@ -4,6 +4,7 @@ dependencies {
     implementation project(':model')
     implementation project(':encriptacion')
     implementation project(':mongo_repository')
+    implementation project(':logs_repository')
     implementation project(':security_jwt')
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation 'org.springframework.boot:spring-boot-starter-security'

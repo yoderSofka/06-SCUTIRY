@@ -1,34 +1,56 @@
-    package com.example.banco_hex_yoder.usecase.compras;
+package com.example.banco_hex_yoder.usecase.compras;
 
-    import com.example.banco_hex_yoder.model.Account;
-    import com.example.banco_hex_yoder.gateway.AccountGateway;
-    import java.math.BigDecimal;
+import com.example.banco_hex_yoder.model.Account;
+import com.example.banco_hex_yoder.gateway.AccountGateway;
+import com.example.banco_hex_yoder.gateway.Bus;
+import java.math.BigDecimal;
 
-    public class CompraEstablecimientoFisico {
+public class CompraEstablecimientoFisico {
 
-        private final AccountGateway accountGateway;
-        private final BigDecimal costoCompraEstablecimiento;
+    private final AccountGateway accountGateway;
+    private final BigDecimal costoCompraEstablecimiento;
+    private final Bus bus;
 
-        public CompraEstablecimientoFisico(AccountGateway accountGateway, BigDecimal costoCompraEstablecimiento) {
-            this.accountGateway = accountGateway;
-            this.costoCompraEstablecimiento = costoCompraEstablecimiento;
+    public CompraEstablecimientoFisico(AccountGateway accountGateway, BigDecimal costoCompraEstablecimiento, Bus bus) {
+        this.accountGateway = accountGateway;
+        this.costoCompraEstablecimiento = costoCompraEstablecimiento;
+        this.bus = bus;
+    }
+
+    public Account realizarCompra(Integer cuentaOrigenNumber, BigDecimal monto) {
+        Account cuentaOrigen = accountGateway.findByNumber(cuentaOrigenNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Cuenta origen no encontrada"));
+
+        Integer cuentaDestinoNumber = 000000000; // Cuenta destino predeterminada
+        BigDecimal montoTotal = monto.add(costoCompraEstablecimiento);
+
+        if (cuentaOrigen.getAmount().compareTo(montoTotal) < 0) {
+            throw new IllegalArgumentException("Saldo insuficiente para realizar la compra");
         }
 
-        public Account realizarCompra(Integer cuentaOrigenNumber, BigDecimal monto) {
-            Account cuentaOrigen = accountGateway.findByNumber(cuentaOrigenNumber)
-                    .orElseThrow(() -> new IllegalArgumentException("Cuenta origen no encontrada"));
+        cuentaOrigen.setAmount(cuentaOrigen.getAmount().subtract(montoTotal));
+        accountGateway.save(cuentaOrigen);
 
-            BigDecimal montoTotal = monto.add(costoCompraEstablecimiento);
+        try {
+            // Registrar la transacción y enviar el log
+            accountGateway.registrarTransaccion(monto, costoCompraEstablecimiento, "CompraEstablecimientoFisico", cuentaOrigenNumber, cuentaDestinoNumber);
 
-            if (cuentaOrigen.getAmount().compareTo(montoTotal) < 0) {
-                throw new IllegalArgumentException("Saldo insuficiente para realizar la compra");
+            bus.sendTransactionLog("COMPRA_ESTABLECIMIENTO_FISICO", cuentaOrigenNumber, cuentaDestinoNumber, monto, costoCompraEstablecimiento, cuentaOrigen.getAmount(),
+                    "Compra en establecimiento físico realizada desde la cuenta " + cuentaOrigenNumber);
+
+        } catch (Exception e) {
+            String errorMessage = "Error en la operación de compra en establecimiento físico. ";
+            if (e.getMessage().contains("registrarTransaccion")) {
+                errorMessage += "Fallo al registrar la transacción: " + e.getMessage();
+            } else if (e.getMessage().contains("sendTransactionLog")) {
+                errorMessage += "Fallo al enviar el log de transacción a RabbitMQ: " + e.getMessage();
+            } else {
+                errorMessage += "Error desconocido: " + e.getMessage();
             }
 
-            cuentaOrigen.setAmount(cuentaOrigen.getAmount().subtract(montoTotal));
-            accountGateway.save(cuentaOrigen);
-
-            accountGateway.registrarTransaccion(monto, costoCompraEstablecimiento, "cCompraEstablecimientoFisico", cuentaOrigenNumber, Integer.valueOf("000000000"));
-
-            return cuentaOrigen;
+            throw new RuntimeException(errorMessage, e);
         }
+
+        return cuentaOrigen;
     }
+}

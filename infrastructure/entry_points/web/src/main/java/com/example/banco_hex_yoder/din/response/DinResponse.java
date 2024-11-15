@@ -32,17 +32,21 @@ public class DinResponse<T> {
         this.dinError = dinError;
     }
 
-
     public DinResponse() {
     }
-
 
     public DinResponse(T dinBody) {
         this.dinBody = dinBody;
     }
 
-
     public DinResponse(DinError dinError) {
+        this.dinError = dinError;
+    }
+
+    // Nuevo constructor
+    public DinResponse(DinHeader dinHeader, T dinBody, DinError dinError) {
+        this.dinHeader = dinHeader;
+        this.dinBody = dinBody;
         this.dinError = dinError;
     }
 }

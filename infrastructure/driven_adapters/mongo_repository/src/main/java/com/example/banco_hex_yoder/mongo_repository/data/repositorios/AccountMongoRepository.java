@@ -47,7 +47,11 @@ public class AccountMongoRepository {
         Document document = mongoTemplate.findOne(query, Document.class, "account");
         return Optional.ofNullable(toAccount(document));
     }
-
+    public Integer findCustomerIdByUsername(String username) {
+        Query query = new Query(Criteria.where("username").is(username));
+        Document customer = mongoTemplate.findOne(query, Document.class, "customer");
+        return customer != null ? customer.getInteger("_id") : null;
+    }
     public void updateBalance(Integer accountId, BigDecimal newBalance) {
         Query query = new Query(Criteria.where("_id").is(accountId));
         Update update = new Update().set("amount", newBalance);
